@@ -6,9 +6,10 @@
 		$Pro_name=$_POST['p_name'];
 		$Pro_dis=$_POST['p_dis'];
 		$Pro_price=$_POST['p_price'];
-		$query="UPDATE prod SET pname ='$Pro_name',pdis = '$Pro_dis',pprice='$Pro_price' WHERE Sn ='$Pro_sn'";
-		$result=mysqli_query($connect,$query);
-		if($result)
+		$query= $connect->prepare("UPDATE prod SET pname =?,pdis = ?,pprice=? WHERE Sn ='$Pro_sn'");
+		// $result=mysqli_query($connect,$query);
+		$query->execute([$Pro_name,$Pro_dis,$Pro_price]);
+		if($query)
 		{
 			header('location:list.php');  
 		}

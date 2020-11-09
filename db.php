@@ -1,13 +1,10 @@
 <?php
-		
-	$connect =mysqli_connect('localhost','root','','product');
+	try{	
+	$connect = new PDO("mysql:host=localhost;dbname=product","root","");
 	
-	// if($connect)
-	// {
-	// 	echo "connected";
+	}
+	catch(PDOException $e){
+		echo "connection failed".$e->getmessage();
+	}
 
-	// }
-	// else {
-	// 	die("not connected");
-	// }
 ?>

@@ -22,28 +22,26 @@
 
 	<?php include 'db.php';
       
+
+      $query=$connect->prepare("SELECT * FROM prod");
+      $query->execute();
+      while($row = $query->fetch(PDO::FETCH_OBJ)){
+
+      	
+        
       
-      	$Squery = "SELECT * FROM prod";
-      	$query = mysqli_query($connect,$Squery);
-      	while($disp = mysqli_fetch_array($query)){
-      		$Pro_sn = $disp['Sn'];
-      		$Pro_name = $disp['pname'];
-      		$Pro_dis = $disp['pdis'];
-      		$Pro_price = $disp['pprice'];
-      		$Pro_image =$disp['pimage'];
-      		
 	?>
       	<tr>
-      		<!-- <td><?php echo $Pro_sn ?></td> -->
-			<td><?php echo $Pro_name ?></td>
-			<td><?php echo $Pro_dis ?></td>
-			<td><?php echo $Pro_price ?></td>
-			<td><img src="<?php echo $Pro_image ?>"></td>
-			<td><a href="edit.php?ID=<?php echo $Pro_sn ?> ">Edit</a></td>
-			<td><a href="delete.php? del=<?php echo $Pro_sn ?>">Delete</a></td>
+      		
+			<td><?php echo $row->pname ?></td>
+			<td><?php echo $row->pdis ?></td>
+			<td><?php echo $row->pprice ?></td>
+			<td><img src="<?php echo $row->pimage ?>"></td>
+			<td><a href="edit.php? ID=$row[Sn]">Edit</a></td>
+			<td><a href="delete.php? del=$row[Sn]">Delete</a></td>
 	</tr>
 	
-	<?php 
+	<?php
      }
 
 ?>

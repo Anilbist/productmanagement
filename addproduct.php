@@ -8,16 +8,21 @@
      	$dest="./product_image/".$v2.$fna;
      	$dst="product_image/".$v2.$fna;
      	move_uploaded_file($_FILES['p_image']['tmp_name'],$dst);
+
         $Name = $_POST['p_name'];
       	$Disp = $_POST['p_dis'];
       	$Price = $_POST['p_price'];
-      	$add_product = "INSERT INTO prod(pname,pdis,pprice,pimage) values('$Name','$Disp','$Price','$dst')";
-         $add_pro = mysqli_query($connect,$add_product);
-         $query="SELECT pimage FROM prod ORDER BY Sn DESC LIMIT 1";
-         $result=mysqli_query($connect,$query);
-         if($result){
+      	// $query= $connect->prepare("INSERT INTO prod(pname,pdis,pprice,pimage) values(?,?,?,?)");
+      	// $query->execute($Name,$Disp,$Price,$dst);
+      	$add_product = $connect->prepare("INSERT INTO prod(pname,pdis,pprice,pimage) values(?,?,?,?)");
+      	$add_product->execute([$Name,$Disp,$Price,$dst]);
+         // $add_pro = mysqli_query($connect,$add_product);
+         if($add_product){
          	
          	header('location:login.php'); 
+         }
+         else{
+         	echo "failed";
          }
         
      	 

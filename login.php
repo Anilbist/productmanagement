@@ -4,17 +4,18 @@ if (isset($_POST["submit"]))
 	$Username = $_POST["username"];
 	$Password = $_POST["password"];
 	// echo "success ";
-	$Username = mysqli_real_escape_string($connect,$Username);
-	$Password = mysqli_real_escape_string($connect,$Password);
+	// $Username = mysqli_real_escape_string($connect,$Username);
+	// $Password = mysqli_real_escape_string($connect,$Password);
 	$hash ="$1S$";
-	$salt= "iamcominghome";
+	$salt ="iamcominghome";
 	$hash_salt = $hash . $salt;
 	$Password = md5($Password,$hash_salt);
-	$query = "INSERT INTO user(username,password) values('$Username','$Password')";
-	$result = mysqli_query($connect,$query);
-	if(!$result){
-		die("query failed". mysqli_error());
-	}
+	$query = $connect->prepare("INSERT INTO user(username,password) values(?,?)");
+	$query->execute([$Username,$Password]);
+	// $result = mysqli_query($connect,$query);
+	// if(!$result){
+	// 	die("query failed". mysqli_error());
+	// }
 }
 ?>
 <!DOCTYPE html>
