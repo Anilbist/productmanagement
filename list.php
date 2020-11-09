@@ -27,9 +27,6 @@
       $query->execute();
       while($row = $query->fetch(PDO::FETCH_OBJ)){
 
-      	
-        
-      
 	?>
       	<tr>
       		
@@ -37,8 +34,8 @@
 			<td><?php echo $row->pdis ?></td>
 			<td><?php echo $row->pprice ?></td>
 			<td><img src="<?php echo $row->pimage ?>"></td>
-			<td><a href="edit.php? ID=$row[Sn]">Edit</a></td>
-			<td><a href="delete.php? del=$row[Sn]">Delete</a></td>
+			<td><a href="edit.php?ID=<?php echo $row->Sn; ?>">Edit</a></td>
+			<td><a href="delete.php?del=<?php echo $row->Sn; ?>">Delete</a></td>
 	</tr>
 	
 	<?php
