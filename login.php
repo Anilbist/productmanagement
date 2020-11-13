@@ -1,11 +1,20 @@
-<?php include 'db.php';
+<?php 
+session_start();
+if(!isset($_SESSION['username']))
+// {
+// 	echo "login success";
+// }
+// else
+{
+	header('location:form.php');
+	die();
+}
+?>
+<!-- <?php include 'db.php';
 if (isset($_POST["submit"]))
 {
 	$Username = $_POST["username"];
 	$Password = $_POST["password"];
-	// echo "success ";
-	// $Username = mysqli_real_escape_string($connect,$Username);
-	// $Password = mysqli_real_escape_string($connect,$Password);
 	$hash ="$1S$";
 	$salt ="iamcominghome";
 	$hash_salt = $hash . $salt;
@@ -17,7 +26,7 @@ if (isset($_POST["submit"]))
 	// 	die("query failed". mysqli_error());
 	// }
 }
-?>
+?> -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,10 +36,9 @@ if (isset($_POST["submit"]))
 </head>
 <h1>PRODUCTS</h1>
 <body>
-	<form action="product.php" method="post">
-	<input type="submit" name="add" value="Add Product"><br>
-	<input type="submit" name="list" value ="List"><br>
-	
+	<a href="addproduct.php">Add Product</a><br>
+	<a href="list.php">List</a><br>
+	<a href="logout.php">Logout</a>
 	</form>
 </body>
 </html>

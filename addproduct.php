@@ -1,11 +1,19 @@
  <?php include 'db.php';
+
+session_start();
+if(!isset($_SESSION['username']))
+{
+	header('location:form.php');
+	die();
+}
+
       
       if (isset($_POST['add_p']))
      {	 
      	$v1=rand(1,99999);
      	$v2=md5($v1);
      	$fna = $_FILES['p_image']['name'];
-     	$dest="./product_image/".$v2.$fna;
+     	// $dest="./product_image/".$v2.$fna;
      	$dst="product_image/".$v2.$fna;
      	move_uploaded_file($_FILES['p_image']['tmp_name'],$dst);
 
@@ -17,6 +25,8 @@
       	$add_product = $connect->prepare("INSERT INTO prod(pname,pdis,pprice,pimage) values(?,?,?,?)");
       	$add_product->execute([$Name,$Disp,$Price,$dst]);
          // $add_pro = mysqli_query($connect,$add_product);
+       //   $query="SELECT pimage FROM prod ORDER BY Sn DESC LIMIT 1";
+       //   $result=mysqli_query($connect,$query);
          if($add_product){
          	
          	header('location:login.php'); 

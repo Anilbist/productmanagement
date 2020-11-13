@@ -1,3 +1,12 @@
+<?php 
+session_start();
+if(!isset($_SESSION['username']))
+
+{
+	header('location:form.php');
+	die();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,19 +38,19 @@
 
 	?>
       	<tr>
-      		
 			<td><?php echo $row->pname ?></td>
 			<td><?php echo $row->pdis ?></td>
 			<td><?php echo $row->pprice ?></td>
 			<td><img src="<?php echo $row->pimage ?>"></td>
 			<td><a href="edit.php?ID=<?php echo $row->Sn; ?>">Edit</a></td>
 			<td><a href="delete.php?del=<?php echo $row->Sn; ?>">Delete</a></td>
-	</tr>
+		</tr>
 	
 	<?php
      }
 
 ?>
+<a href="login.php">Back</a>
 			
 			</thead>
 		</table>
