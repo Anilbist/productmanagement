@@ -24,7 +24,7 @@ if(!isset($_SESSION['username']))
 					<th>Discription</th>
 					<th>Price</th>
 					<th>product image</th>
-					<th colspan="2">Operation</th>
+					<th colspan="3">Operation</th>
 				</t>
 
 
@@ -42,6 +42,7 @@ if(!isset($_SESSION['username']))
 			<td><?php echo $row->pdis ?></td>
 			<td><?php echo $row->pprice ?></td>
 			<td><img src="<?php echo $row->pimage ?>"></td>
+			<!-- <td><a href="view.php?ID=<?php echo $row->Sn; ?>">View</a></td> -->
 			<td><a href="edit.php?ID=<?php echo $row->Sn; ?>">Edit</a></td>
 			<td><a href="delete.php?del=<?php echo $row->Sn; ?>">Delete</a></td>
 		</tr>

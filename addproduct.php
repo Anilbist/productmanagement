@@ -9,21 +9,27 @@ if(!isset($_SESSION['username']))
 
       
       if (isset($_POST['add_p']))
-     {	 
-     	$v1=rand(1,99999);
-     	$v2=md5($v1);
-     	$fna = $_FILES['p_image']['name'];
+      {	
+      	$img='';
+      foreach ( $_FILES['p_image']['name'] as $key => $val) {
+       	
+     	// $v1=rand(1,99999);
+     	// $v2=md5($v1);
+     	$fna = $_FILES['p_image']['name'][$key];
      	// $dest="./product_image/".$v2.$fna;
-     	$dst="product_image/".$v2.$fna;
-     	move_uploaded_file($_FILES['p_image']['tmp_name'],$dst);
-
+     	$dst="product_image/".$fna;
+     	
+     	move_uploaded_file($_FILES['p_image']['tmp_name'][$key],$dst);
+     	$img .=$dst.",";
+     	// echo $img;
+}
         $Name = $_POST['p_name'];
       	$Disp = $_POST['p_dis'];
       	$Price = $_POST['p_price'];
       	// $query= $connect->prepare("INSERT INTO prod(pname,pdis,pprice,pimage) values(?,?,?,?)");
       	// $query->execute($Name,$Disp,$Price,$dst);
       	$add_product = $connect->prepare("INSERT INTO prod(pname,pdis,pprice,pimage) values(?,?,?,?)");
-      	$add_product->execute([$Name,$Disp,$Price,$dst]);
+      	$add_product->execute([$Name,$Disp,$Price,$img]);
          // $add_pro = mysqli_query($connect,$add_product);
        //   $query="SELECT pimage FROM prod ORDER BY Sn DESC LIMIT 1";
        //   $result=mysqli_query($connect,$query);
@@ -64,7 +70,7 @@ if(!isset($_SESSION['username']))
 			</tr>
 			<tr>
 				<td>Product Image:</td>
-				<td> <input type="file" name="p_image">	</td>
+				<td> <input type="file" name="p_image[]" multiple>	</td>
 			</tr>
 			<tr>
 				<td><input type="submit" name="add_p" value ="Add Product"></td>
