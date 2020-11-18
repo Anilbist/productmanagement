@@ -10,19 +10,20 @@ if(!isset($_SESSION['username']))
       
       if (isset($_POST['add_p']))
       {	
+      	
       	$img='';
       foreach ( $_FILES['p_image']['name'] as $key => $val) {
-       	
+       	if(!empty($val)){
      	// $v1=rand(1,99999);
      	// $v2=md5($v1);
      	$fna = $_FILES['p_image']['name'][$key];
-     	// $dest="./product_image/".$v2.$fna;
+     	// $dest="./product_image/".$v2.$fna; 
      	$dst="product_image/".$fna;
      	
      	move_uploaded_file($_FILES['p_image']['tmp_name'][$key],$dst);
-     	$img .=$dst.",";
+     	$img .=$dst.",";}
      	// echo $img;
-}
+		}
         $Name = $_POST['p_name'];
       	$Disp = $_POST['p_dis'];
       	$Price = $_POST['p_price'];
@@ -70,7 +71,12 @@ if(!isset($_SESSION['username']))
 			</tr>
 			<tr>
 				<td>Product Image:</td>
-				<td> <input type="file" name="p_image[]" multiple>	</td>
+				<?php 
+				$max_no=3;
+				for($i=1; $i<=$max_no; $i++){
+					echo "<tr><td> Images $i </td><td> <input type='file' name='p_image[]'>	</td></tr>";
+			}
+			?>
 			</tr>
 			<tr>
 				<td><input type="submit" name="add_p" value ="Add Product"></td>

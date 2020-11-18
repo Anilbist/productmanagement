@@ -7,8 +7,9 @@ if(isset($_POST["submit"]))
 	$query=$connect->prepare("SELECT * FROM user WHERE username=? AND password=?");
 	$query->execute([$Username,$Password]);
 	$count=$query->rowCount();
+	// print_r($count);}
 	// $data = $query->fetchAll(PDO::FETCH_ASSOC);
-	if($count>0)
+	if($count==1)
 	// if(isset($data['0']))
 	{
 		// $_SESSION['LOGIN']= 'yes';

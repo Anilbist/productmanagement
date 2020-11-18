@@ -6,6 +6,7 @@
 		$Pro_name=$_POST['p_name'];
 		$Pro_dis=$_POST['p_dis'];
 		$Pro_price=$_POST['p_price'];
+	if(!empty($_FILES['p_image']['name'])){
 		$v1=rand(1,99999);
      	$v2=md5($v1);
      	$fna = $_FILES['p_image']['name'];
@@ -19,6 +20,12 @@
 		$Query= $connect->prepare("UPDATE prod SET pname =?,pdis = ?,pprice=?,pimage=? WHERE Sn ='$Pro_sn'");
 		// $result=mysqli_query($connect,$query);
 		$Query->execute([$Pro_name,$Pro_dis,$Pro_price,$dst]);
+	}
+	else{
+		$Query= $connect->prepare("UPDATE prod SET pname =?,pdis = ?,pprice=? WHERE Sn ='$Pro_sn'");
+		// $result=mysqli_query($connect,$query);
+		$Query->execute([$Pro_name,$Pro_dis,$Pro_price]);
+	}
 		if($Query)
 		{
 			header('location:list.php');  

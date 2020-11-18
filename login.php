@@ -1,10 +1,10 @@
 <?php 
 session_start();
-if(!isset($_SESSION['username']))
-// {
-// 	echo "login success";
-// }
-// else
+if(isset($_SESSION['username']))
+{
+	echo "welcome".' '.$_SESSION['username'];
+}
+else
 {
 	header('location:form.php');
 	die();
