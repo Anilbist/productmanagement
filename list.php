@@ -36,36 +36,11 @@ if(!isset($_SESSION['username']))
       	
 
 	?>
-
-
-
-
-
-
-
-
-
-
-
       	<tr>
 			<td><?php echo $row->pname ?></td>
 			<td><?php echo $row->pdis ?></td>
 			<td><?php echo $row->pprice ?></td>
-			<td><?php 
-
-
-							$images_csv = array($row->pimage);
-				$images = explode(',',row->pimage );
-
-				$value = '';
-				foreach ($images as $im){
-				    $value .= '<img src="'. $im . '" />';
-				}
-
-
-
-
-			 ?></td>
+			<td><img src="<?php echo $row->pimage ?>"></td>
 			<!-- <td><a href="view.php?ID=<?php echo $row->Sn; ?>">View</a></td> -->
 			<td><a href="edit.php?ID=<?php echo $row->Sn; ?>">Edit</a></td>
 			<td><a href="delete.php?del=<?php echo $row->Sn; ?>">Delete</a></td>

@@ -9,41 +9,56 @@ if(!isset($_SESSION['username']))
 
       
       if (isset($_POST['add_p']))
-      {	
-      	
-      	$img='';
-      foreach ( $_FILES['p_image']['name'] as $key => $val) {
-       	if(!empty($val)){
+      {
+      	$id = $_POST['p_id'];
+		$Name = $_POST['p_name'];
+      	$Disp = $_POST['p_dis'];
+      	$Price = $_POST['p_price'];
+      	for($i=0; $i< count($_FILES['p_image']['name']); $i++){
+      	// $img='';
+      // foreach ( $_FILES['p_image']['name'] as $key => $val) {
+       	// if(!empty($val)){
      	// $v1=rand(1,99999);
      	// $v2=md5($v1);
-     	$fna = $_FILES['p_image']['name'][$key];
+     	$fna = $_FILES['p_image']['name'][$i];
      	// $dest="./product_image/".$v2.$fna; 
      	$dst="product_image/".$fna;
      	
-     	move_uploaded_file($_FILES['p_image']['tmp_name'][$key],$dst);
-     	$img .=$dst.",";}
+     	move_uploaded_file($_FILES['p_image']['tmp_name'][$i],$dst);
+     	// $img .=$dst.",";}
      	// echo $img;
-		}
-        $Name = $_POST['p_name'];
-      	$Disp = $_POST['p_dis'];
-      	$Price = $_POST['p_price'];
+    		 // }
+		// }
+		
+		
+		
       	// $query= $connect->prepare("INSERT INTO prod(pname,pdis,pprice,pimage) values(?,?,?,?)");
       	// $query->execute($Name,$Disp,$Price,$dst);
-      	$add_product = $connect->prepare("INSERT INTO prod(pname,pdis,pprice,pimage) values(?,?,?,?)");
-      	$add_product->execute([$Name,$Disp,$Price,$img]);
+      	
+      	// if($add_product->execute()){
+      	$add_product1 = $connect->prepare("INSERT INTO image(pro_id,image) values(?,?) ");
+      	$add_product1->execute([$id,$dst]);
+      // }
+      // else{echo "failed";
          // $add_pro = mysqli_query($connect,$add_product);
+      // }
        //   $query="SELECT pimage FROM prod ORDER BY Sn DESC LIMIT 1";
        //   $result=mysqli_query($connect,$query);
-         if($add_product){
+     //    if($add_product AND $add_product1 )
+ 	  	// {
          	
-         	header('location:login.php'); 
-         }
-         else{
-         	echo "failed";
-         }
-        
-     	 
+     //     	header('location:login.php'); 
+     //    }
+     //     else
+     //     {
+     //     	echo "failed";
+     //     }
+       
+     	} 
+     	$add_product = $connect->prepare("INSERT INTO prod(pname,pdis,pprice) values(?,?,?)");
+      	$add_product->execute([$Name,$Disp,$Price]);
  	 }
+ 	  
 
 ?>
 
@@ -58,6 +73,10 @@ if(!isset($_SESSION['username']))
 	<form action="addproduct.php" method = "post" enctype="multipart/form-data">
 		<table>
 			<tr>
+				<td>Product ID:</td>
+				<td> <input type="text" name="p_id"></td>
+			</tr>
+			<tr>
 				<td>Product Name:</td>
 				<td> <input type="text" name="p_name"></td>
 			</tr>
@@ -71,12 +90,9 @@ if(!isset($_SESSION['username']))
 			</tr>
 			<tr>
 				<td>Product Image:</td>
-				<?php 
-				$max_no=3;
-				for($i=1; $i<=$max_no; $i++){
-					echo "<tr><td> Images $i </td><td> <input type='file' name='p_image[]'>	</td></tr>";
-			}
-			?>
+				
+					<td> <input type='file' name='p_image[]' multiple/>	</td>
+			
 			</tr>
 			<tr>
 				<td><input type="submit" name="add_p" value ="Add Product"></td>
