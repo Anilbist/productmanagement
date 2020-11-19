@@ -4,8 +4,12 @@
 		$query =$connect->prepare("SELECT * FROM prod where Sn =?");
       	// $query = mysqli_query($connect,$Squery);
             $query->execute([$Pro_sn]);
-      	$row = $query->fetch(PDO::FETCH_OBJ);
-            
+      	while($row = $query->fetch(PDO::FETCH_OBJ)){
+            // print_r($row);
+       
+            $query1=$connect->prepare("SELECT * FROM pro_image where proid=$Pro_sn ");
+            $query1->execute();
+           
       	// while ($row) {
       	// 	 $Pro_sn = $row->Sn;
       	// 	$Pro_name = $row->pname;
@@ -46,14 +50,27 @@
       </tr>
       <tr>
             <td><b>Product Image:</b> </td>
-                  <td><img src="<?php echo $row->pimage ?>"></td>
-                        <td>
-                              <input type="file" name="p_image">
-                        </td>
+                  <?php
+                   while($row1 = $query1->fetch(PDO::FETCH_OBJ)){
+                  ?>
+                         <td><img src="<?php echo $row1->pimage ?>"></td>  
+      <?php 
+
+                        }
+                   }
+       ?>                      
+         </tr>
+            <tr>
+                              <td>
+                                    <input type='file' name='p_image[]'' multiple>
+                              </td>
       </tr>
       <tr>
 	     <td><input type="submit" name="update" value ="Update"></td>
       </tr>
+      
+
+
 
 </table>
       </form>

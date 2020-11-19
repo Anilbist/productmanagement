@@ -30,24 +30,27 @@ if(!isset($_SESSION['username']))
 	<?php include 'db.php';
 	
 
-      $query=$connect->prepare("SELECT * FROM prod");
+      $query=$connect->prepare("SELECT * FROM prod ");
       $query->execute();
       while($row = $query->fetch(PDO::FETCH_OBJ)){
-      	
+      		$Id=$row->Sn;
+      $query1=$connect->prepare("SELECT * FROM pro_image where proid=$Id LIMIT 0,1 ");
+      	 $query1->execute();
+      	 while($row1 = $query1->fetch(PDO::FETCH_OBJ)){
 
 	?>
       	<tr>
 			<td><?php echo $row->pname ?></td>
 			<td><?php echo $row->pdis ?></td>
 			<td><?php echo $row->pprice ?></td>
-			<td><img src="<?php echo $row->pimage ?>"></td>
-			<!-- <td><a href="view.php?ID=<?php echo $row->Sn; ?>">View</a></td> -->
+			<td><img src="<?php echo $row1->pimage ?>"></td>
 			<td><a href="edit.php?ID=<?php echo $row->Sn; ?>">Edit</a></td>
 			<td><a href="delete.php?del=<?php echo $row->Sn; ?>">Delete</a></td>
 		</tr>
 	
 	<?php
      }
+ }
 
 ?>
 <a href="login.php">Back</a>

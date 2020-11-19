@@ -6,57 +6,40 @@ if(!isset($_SESSION['username']))
 	header('location:form.php');
 	die();
 }
-
-      
       if (isset($_POST['add_p']))
       {
-      	$id = $_POST['p_id'];
+      	
 		$Name = $_POST['p_name'];
       	$Disp = $_POST['p_dis'];
       	$Price = $_POST['p_price'];
+      	$add_product = $connect->prepare("INSERT INTO prod(pname,pdis,pprice) values(?,?,?)");
+      	$add_product->execute([$Name,$Disp,$Price]);
+      	 $last_id = $connect->lastInsertId();
       	for($i=0; $i< count($_FILES['p_image']['name']); $i++){
-      	// $img='';
-      // foreach ( $_FILES['p_image']['name'] as $key => $val) {
-       	// if(!empty($val)){
-     	// $v1=rand(1,99999);
-     	// $v2=md5($v1);
+      	
+     	$v1=rand(1,99999);
+     	$v2=md5($v1);
      	$fna = $_FILES['p_image']['name'][$i];
-     	// $dest="./product_image/".$v2.$fna; 
-     	$dst="product_image/".$fna;
+     	
+     	$dst="product_image/".$v2.$fna;
      	
      	move_uploaded_file($_FILES['p_image']['tmp_name'][$i],$dst);
-     	// $img .=$dst.",";}
-     	// echo $img;
-    		 // }
-		// }
-		
-		
-		
-      	// $query= $connect->prepare("INSERT INTO prod(pname,pdis,pprice,pimage) values(?,?,?,?)");
-      	// $query->execute($Name,$Disp,$Price,$dst);
-      	
-      	// if($add_product->execute()){
-      	$add_product1 = $connect->prepare("INSERT INTO image(pro_id,image) values(?,?) ");
-      	$add_product1->execute([$id,$dst]);
-      // }
-      // else{echo "failed";
-         // $add_pro = mysqli_query($connect,$add_product);
-      // }
-       //   $query="SELECT pimage FROM prod ORDER BY Sn DESC LIMIT 1";
-       //   $result=mysqli_query($connect,$query);
-     //    if($add_product AND $add_product1 )
- 	  	// {
+     	
+      	$add_product1 = $connect->prepare("INSERT INTO pro_image(proid,pimage) values(?,?) ");
+      	$add_product1->execute([$last_id,$dst]);
+    
+        if($add_product AND $add_product1 )
+ 	  	{
          	
-     //     	header('location:login.php'); 
-     //    }
-     //     else
-     //     {
-     //     	echo "failed";
-     //     }
+         	header('location:login.php'); 
+        }
+         else
+         {
+         	echo "failed";
+         }
        
      	} 
-     	$add_product = $connect->prepare("INSERT INTO prod(pname,pdis,pprice) values(?,?,?)");
-      	$add_product->execute([$Name,$Disp,$Price]);
+     	
  	 }
  	  
 
@@ -72,10 +55,7 @@ if(!isset($_SESSION['username']))
 <body>
 	<form action="addproduct.php" method = "post" enctype="multipart/form-data">
 		<table>
-			<tr>
-				<td>Product ID:</td>
-				<td> <input type="text" name="p_id"></td>
-			</tr>
+			
 			<tr>
 				<td>Product Name:</td>
 				<td> <input type="text" name="p_name"></td>

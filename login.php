@@ -10,23 +10,6 @@ else
 	die();
 }
 ?>
-<!-- <?php include 'db.php';
-if (isset($_POST["submit"]))
-{
-	$Username = $_POST["username"];
-	$Password = $_POST["password"];
-	$hash ="$1S$";
-	$salt ="iamcominghome";
-	$hash_salt = $hash . $salt;
-	$Password = md5($Password,$hash_salt);
-	$query = $connect->prepare("INSERT INTO user(username,password) values(?,?)");
-	$query->execute([$Username,$Password]);
-	// $result = mysqli_query($connect,$query);
-	// if(!$result){
-	// 	die("query failed". mysqli_error());
-	// }
-}
-?> -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
