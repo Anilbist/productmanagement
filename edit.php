@@ -62,7 +62,7 @@
          </tr>
             <tr>
                               <td>
-                                    <input type='file' name='p_image[]'' multiple>
+                                    <input type='file' name='p_image[]' multiple>
                               </td>
       </tr>
       <tr>

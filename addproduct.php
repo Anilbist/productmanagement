@@ -14,7 +14,7 @@ if(!isset($_SESSION['username']))
       	$Price = $_POST['p_price'];
       	$add_product = $connect->prepare("INSERT INTO prod(pname,pdis,pprice) values(?,?,?)");
       	$add_product->execute([$Name,$Disp,$Price]);
-      	 $last_id = $connect->lastInsertId();
+      	$last_id = $connect->lastInsertId();
       	for($i=0; $i< count($_FILES['p_image']['name']); $i++){
       	
      	$v1=rand(1,99999);
