@@ -7,10 +7,10 @@ if (isset($_GET['del'])){
     unlink($row->pimage);}
 	$Query = $connect->prepare("DELETE FROM prod WHERE Sn=?");
 	$Query->execute([$Pro_sn]);
-	$Query1 = $connect->prepare("DELETE FROM pro_image WHERE proid=?");
-	$Query1->execute([$Pro_sn]);
+	// $Query1 = $connect->prepare("DELETE FROM pro_image WHERE proid=?");
+	// $Query1->execute([$Pro_sn]);
 	// $result = mysqli_query($connect,$query);
-	if($Query AND $Query1)
+	if($Query)
 	{	
 		header("location:list.php");
 	}

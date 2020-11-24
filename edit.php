@@ -6,19 +6,9 @@
             $query->execute([$Pro_sn]);
       	while($row = $query->fetch(PDO::FETCH_OBJ)){
             // print_r($row);
-       
             $query1=$connect->prepare("SELECT * FROM pro_image where proid=$Pro_sn ");
             $query1->execute();
-           
-      	// while ($row) {
-      	// 	 $Pro_sn = $row->Sn;
-      	// 	$Pro_name = $row->pname;
-      	// 	$Pro_dis = $row->pdis;
-      	// 	$Pro_price = $row->pprice;
-       //            $Pro_image = $row->pimage;	
-      	// }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -53,7 +43,7 @@
                   <?php
                    while($row1 = $query1->fetch(PDO::FETCH_OBJ)){
                   ?>
-                         <td><img src="<?php echo $row1->pimage ?>"></td>  
+                        <td><img src="<?php echo $row1->pimage ?>"></td>  
       <?php 
 
                         }
@@ -69,9 +59,6 @@
 	     <td><input type="submit" name="update" value ="Update"></td>
       </tr>
       
-
-
-
 </table>
       </form>
 </body>
