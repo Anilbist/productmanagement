@@ -1,50 +1,12 @@
- <?php include 'db.php';
-
+<?php 
 session_start();
 if(!isset($_SESSION['username']))
+
 {
 	header('location:form.php');
 	die();
 }
-      if (isset($_POST['add_p']))
-      {
-      	
-		$Name = $_POST['p_name'];
-      	$Disp = $_POST['p_dis'];
-      	$Price = $_POST['p_price'];
-      	$add_product = $connect->prepare("INSERT INTO prod(pname,pdis,pprice) values(?,?,?)");
-      	$add_product->execute([$Name,$Disp,$Price]);
-      	$last_id = $connect->lastInsertId();
-      	for($i=0; $i< count($_FILES['p_image']['name']); $i++){
-      	
-     	$v1=rand(1,99999);
-     	$v2=md5($v1);
-     	$fna = $_FILES['p_image']['name'][$i];
-     	
-     	$dst="product_image/".$v2.$fna;
-     	
-     	move_uploaded_file($_FILES['p_image']['tmp_name'][$i],$dst);
-     	
-      	$add_product1 = $connect->prepare("INSERT INTO pro_image(proid,pimage) values(?,?) ");
-      	$add_product1->execute([$last_id,$dst]);
-    
-        if($add_product AND $add_product1 )
- 	  	{
-         	
-         	header('location:login.php'); 
-        }
-         else
-         {
-         	echo "failed";
-         }
-       
-     	} 
-     	
- 	 }
- 	  
-
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -53,7 +15,7 @@ if(!isset($_SESSION['username']))
 	<title>Document</title>
 </head>
 <body>
-	<form action="addproduct.php" method = "post" enctype="multipart/form-data">
+	<form action="formaction.php" method = "post" enctype="multipart/form-data">
 		<table>
 			
 			<tr>

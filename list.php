@@ -17,7 +17,7 @@ if(!isset($_SESSION['username']))
 <body>
 	<h1>List of All Product </h1>
 		<table align= "centre" border="1px">
-			<thead>
+			
 				<t>
 					<!-- <th>Sn</th> -->
 					<th>Name</th>
@@ -45,7 +45,7 @@ if(!isset($_SESSION['username']))
 			<td><?php echo $row->pprice ?></td>
 			<td><img src="<?php echo $row1->pimage ?>"></td>
 			<td><a href="edit.php?ID=<?php echo $row->Sn; ?>">Edit</a></td>
-			<td><a href="delete.php?del=<?php echo $row->Sn; ?>">Delete</a></td>
+			<td><a href="formaction.php?del=<?php echo $row->Sn; ?>">Delete</a></td>
 		</tr>
 	
 	<?php
@@ -55,7 +55,7 @@ if(!isset($_SESSION['username']))
 ?>
 <a href="login.php">Back</a>
 			
-			</thead>
+			
 		</table>
 </body>
 </html>

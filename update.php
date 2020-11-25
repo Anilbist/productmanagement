@@ -1,5 +1,5 @@
 
-<?php include 'db.php';
+<!-- <?php include 'db.php';
 	if (isset($_POST["update"]))
 	{
 		$Pro_sn=$_GET['id'];
@@ -28,4 +28,4 @@
 			echo "connection failed";
 		}
 	}
-?>
+?> -->
